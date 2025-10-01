@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registries hub by Jayesh</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            transition: background 0.3s;
+        }
+        .container {
+            max-width: 600px;
+            margin: 60px auto 0 auto;
+            padding: 30px;
+            background: rgba(255,255,255,0.85);
+            border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.2em;
+            letter-spacing: 1px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            margin: 18px 0;
+            font-size: 1.2em;
+        }
+        a.registry-link {
+            text-decoration: none;
+            color: #333;
+            padding: 12px 24px;
+            border-radius: 8px;
+            display: inline-block;
+            transition: background 0.3s, color 0.3s;
+            font-weight: 500;
+        }
+        /* Hover backgrounds */
+        a.registry-link.docker-hub:hover { background: #0074D9; color: #fff; }
+        a.registry-link.ecr:hover { background: #FF9900; color: #fff; }
+        a.registry-link.acr:hover { background: #00B4FF; color: #fff; }
+        a.registry-link.gcr:hover { background: #2ECC40; color: #fff; }
+        a.registry-link.redhat:hover { background: #D32F2F; color: #fff; }
+        /* Dynamic background on hover for body */
+        a.registry-link.docker-hub:hover ~ script { body.style.background = '#e3f2fd'; }
+        a.registry-link.ecr:hover ~ script { body.style.background = '#fff3e0'; }
+        a.registry-link.acr:hover ~ script { body.style.background = '#e0f7fa'; }
+        a.registry-link.gcr:hover ~ script { body.style.background = '#e8f5e9'; }
+        a.registry-link.redhat:hover ~ script { body.style.background = '#ffebee'; }
+        /* Host/IP display */
+        .hostinfo {
+            position: fixed;
+            right: 18px;
+            bottom: 12px;
+            font-size: 0.85em;
+            color: #888;
+            opacity: 0.7;
+            z-index: 100;
+            background: rgba(255,255,255,0.5);
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Registries hub</h1>
+        <ul>
+            <li>
+                <a class="registry-link docker-hub" href="https://hub.docker.com/" target="_blank">Docker Hub</a>
+            </li>
+            <li>
+                <a class="registry-link ecr" href="https://console.aws.amazon.com/ecr/" target="_blank">AWS ECR</a>
+            </li>
+            <li>
+                <a class="registry-link acr" href="https://portal.azure.com/#blade/HubsExtension/BrowseResource/resourceType/Microsoft.ContainerRegistry%2Fregistries" target="_blank">Azure ACR</a>
+            </li>
+            <li>
+                <a class="registry-link gcr" href="https://console.cloud.google.com/gcr/" target="_blank">Google GCR</a>
+            </li>
+            <li>
+                <a class="registry-link redhat" href="https://catalog.redhat.com/software/containers/search" target="_blank">Redhat Registry</a>
+            </li>
+        </ul>
+    </div>
+    <div class="hostinfo">
+        Host: {{ hostname }} | IP: {{ ip_address }}
+    </div>
+    <script>
+        // Dynamic background on hover
+        document.querySelectorAll('.registry-link').forEach(function(link) {
+            link.addEventListener('mouseenter', function() {
+                if (link.classList.contains('docker-hub')) {
+                    document.body.style.background = '#e3f2fd';
+                } else if (link.classList.contains('ecr')) {
+                    document.body.style.background = '#fff3e0';
+                } else if (link.classList.contains('acr')) {
+                    document.body.style.background = '#e0f7fa';
+                } else if (link.classList.contains('gcr')) {
+                    document.body.style.background = '#e8f5e9';
+                } else if (link.classList.contains('redhat')) {
+                    document.body.style.background = '#ffebee';
+                }
+            });
+            link.addEventListener('mouseleave', function() {
+                document.body.style.background = 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)';
+            });
+        });
+    </script>
+</body>
+</html>
